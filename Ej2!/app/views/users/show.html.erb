@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @user.group %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Group</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+        <% Note.all.each do |i| %>
+	<% if i.user.id.to_i == params[:user_id].to_i %>
+		<%= i.name %>
+		<br>
+	<% end %>
+      <tr>
+        <td><%= i.title %></td>
+        <td><%= i.user.name %></td>
+        <td><%= link_to 'Show', group_user_note_path(params[:id]) %></td>
+        <td><%= link_to 'Edit', edit_group_user_path(params[:user_id]) %></td>
+        <td><%= link_to 'Destroy', group_user_path(params[:user_id]), method: :delete %></td>
+<% end %>
+  </tbody>
+</table>
+
+<%= link_to("New Note", new_group_user_notes_path(params[:group_id], @user)) %> 
+<%# link_to 'Edit', edit_group_user_path(@group, @user)  %> |
+<%= link_to 'Back', group_users_path %>
